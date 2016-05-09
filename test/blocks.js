@@ -39,3 +39,15 @@ exports['create genesis block'] = function (test) {
     test.equal(block.parentHash, '0x0000000000000000000000000000000000000000000000000000000000000000');
 }
 
+exports['create child block'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    
+    test.ok(block);
+    test.equal(typeof block, 'object');
+    test.equal(block.number, 1);
+    test.ok(isHash(block.hash));
+    test.ok(isHash(block.parentHash));
+    test.equal(block.parentHash, genesis.hash);
+}
+

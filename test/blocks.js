@@ -51,3 +51,16 @@ exports['create child block'] = function (test) {
     test.equal(block.parentHash, genesis.hash);
 }
 
+exports['create child block with initial data'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block({ extra: 'hello' }, genesis);
+    
+    test.ok(block);
+    test.equal(typeof block, 'object');
+    test.equal(block.number, 1);
+    test.ok(isHash(block.hash));
+    test.ok(isHash(block.parentHash));
+    test.equal(block.parentHash, genesis.hash);
+    test.equal(block.extra, 'hello');
+}
+

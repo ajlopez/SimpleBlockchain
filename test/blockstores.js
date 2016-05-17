@@ -57,3 +57,21 @@ exports['save block and retrieve it by parent hash'] = function (test) {
     test.equal(result[0].parentHash, parentHash);
 };
 
+exports['save block and retrieve it by number'] = function (test) {
+    var store = stores.blockstore();
+    var hash = utils.hash();
+    var parentHash = utils.hash();
+    var block = { hash: hash, number: 1, parentHash: parentHash };
+    
+    store.save(block);
+    
+    var result = store.getByNumber(1);
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.equal(result.length, 1);
+    test.equal(result[0].number, 1);
+    test.equal(result[0].hash, hash);
+    test.equal(result[0].parentHash, parentHash);
+};
+

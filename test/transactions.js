@@ -15,3 +15,14 @@ exports['create transfer'] = function (test) {
     test.equal(tx.value, value);
 }
 
+exports['create transfer with id'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+    
+    var tx = transactions.transfer(from, to, value);
+    
+    test.ok(tx);
+    test.ok(tx.id);
+}
+

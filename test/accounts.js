@@ -1,5 +1,6 @@
 
 var accounts = require('../lib/accounts');
+var utils = require('../lib/utils');
 
 function isHexadecimal(text) {
     for (var k = 0; k < text.length; k++) {
@@ -21,7 +22,6 @@ exports['create account with address'] = function (test) {
     test.ok(account);
     test.ok(account.address);
     test.equal(account.address.length, 42);
-    test.equal(account.address.substring(0, 2), '0x');
-    test.ok(isHexadecimal(account.address.substring(2)));
+    test.ok(utils.isHexadecimal(account.address));
 };
 

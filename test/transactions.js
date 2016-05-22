@@ -24,5 +24,6 @@ exports['create transfer with id'] = function (test) {
     
     test.ok(tx);
     test.ok(tx.id);
+    test.ok(utils.isHexadecimal(tx.id));
 }
 

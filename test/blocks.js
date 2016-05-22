@@ -1,19 +1,6 @@
 
 var blocks = require('../lib/blocks');
-
-function isHexadecimal(text) {
-    for (var k = 0; k < text.length; k++) {
-        var ch = text[k];
-        if (ch >= '0' && ch <='9')
-            continue;
-        if (ch >= 'a' && ch <= 'f')
-            continue;
-            
-        return false;
-    }
-    
-    return true;
-}
+var utils = require('../lib/utils');
 
 function isHash(hash) {
     if (typeof hash !== 'string')
@@ -22,10 +9,7 @@ function isHash(hash) {
     if (hash.length != 66)
         return false;
         
-    if (hash.substring(0, 2) !== '0x')
-        return false;
-        
-    return isHexadecimal(hash.substring(2));
+    return utils.isHexadecimal(hash);
 }
 
 exports['create genesis block'] = function (test) {

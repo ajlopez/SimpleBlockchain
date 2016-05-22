@@ -33,3 +33,17 @@ exports['add block same height'] = function (test) {
     
     test.equal(bc.bestBlock(), block);
 };
+
+exports['add block next height but another parent block'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    var block2 = blocks.block(genesis);
+    var block3 = blocks.block(block2);
+    
+    var bc = blockchains.blockchain(genesis);
+    
+    bc.add(block);
+    bc.add(block3);
+    
+    test.equal(bc.bestBlock(), block);
+};

@@ -11,3 +11,13 @@ exports['create blockchain'] = function (test) {
     test.equal(bc.bestBlock(), genesis);
 };
 
+exports['add block'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    var bc = blockchains.blockchain(genesis);
+    
+    bc.add(block);
+    
+    test.equal(bc.bestBlock(), block);
+};
+

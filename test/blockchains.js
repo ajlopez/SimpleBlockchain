@@ -21,3 +21,15 @@ exports['add block'] = function (test) {
     test.equal(bc.bestBlock(), block);
 };
 
+exports['add block same height'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    var block2 = blocks.block(genesis);
+    
+    var bc = blockchains.blockchain(genesis);
+    
+    bc.add(block);
+    bc.add(block2);
+    
+    test.equal(bc.bestBlock(), block);
+};

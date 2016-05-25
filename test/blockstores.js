@@ -17,10 +17,10 @@ exports['retrieve unknown block by hash'] = function (test) {
     test.equal(block, null);
 };
 
-exports['retrieve unknown block by parent hash'] = function (test) {
+exports['retrieve no children'] = function (test) {
     var store = stores.blockstore();
     
-    var result = store.getByParentHash(utils.hash());
+    var result = store.getChildren(utils.hash());
     
     test.ok(result);
     test.ok(Array.isArray(result));
@@ -40,7 +40,7 @@ exports['save block and retrieve it by hash'] = function (test) {
     test.equal(result.hash, hash);
 };
 
-exports['save block and retrieve it by parent hash'] = function (test) {
+exports['get children'] = function (test) {
     var store = stores.blockstore();
     var hash = utils.hash();
     var parentHash = utils.hash();
@@ -48,7 +48,7 @@ exports['save block and retrieve it by parent hash'] = function (test) {
     
     store.save(block);
     
-    var result = store.getByParentHash(parentHash);
+    var result = store.getChildren(parentHash);
     
     test.ok(result);
     test.ok(Array.isArray(result));

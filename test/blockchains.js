@@ -86,7 +86,6 @@ exports['switch to a better blockchain'] = function (test) {
     test.equal(bc.bestBlock().hash, block3.hash);
 };
 
-/*
 exports['switch to a better blockchain with gap'] = function (test) {
     var genesis = blocks.block();
     var block = blocks.block(genesis);
@@ -108,4 +107,3 @@ exports['switch to a better blockchain with gap'] = function (test) {
     test.equal(bc.bestBlock().number, block4.number);
     test.equal(bc.bestBlock().hash, block4.hash);
 };
-*/

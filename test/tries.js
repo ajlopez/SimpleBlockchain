@@ -16,3 +16,13 @@ exports['get no data from empty trie'] = function (test) {
     test.equal(result, null);
 };
 
+exports['put data and create another trie'] = function (test) {
+    var trie = tries.trie();
+    
+    var result = trie.put('0123', 42);
+    
+    test.ok(result);
+    test.ok(result !== trie);
+};
+
+

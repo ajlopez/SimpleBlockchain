@@ -25,4 +25,13 @@ exports['put data and create another trie'] = function (test) {
     test.ok(result !== trie);
 };
 
+exports['put data and get data'] = function (test) {
+    var trie = tries.trie();
+    
+    var result = trie.put('0123', 42).get('0123');
+    
+    test.ok(result);
+    test.equal(result, 42);
+};
+
 

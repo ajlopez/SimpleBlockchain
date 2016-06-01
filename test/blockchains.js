@@ -4,7 +4,9 @@ var blocks = require('../lib/blocks');
 
 exports['create blockchain'] = function (test) {
     var genesis = blocks.block();
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
+    
+    bc.add(genesis);
     
     test.ok(bc);
     test.equal(typeof bc, 'object');
@@ -15,8 +17,9 @@ exports['create blockchain'] = function (test) {
 exports['add block'] = function (test) {
     var genesis = blocks.block();
     var block = blocks.block(genesis);
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     
     test.equal(bc.bestBlock().number, block.number);
@@ -28,8 +31,9 @@ exports['add block same height'] = function (test) {
     var block = blocks.block(genesis);
     var block2 = blocks.block(genesis);
     
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     bc.add(block2);
     
@@ -42,8 +46,9 @@ exports['add block with next height'] = function (test) {
     var block = blocks.block(genesis);
     var block2 = blocks.block(block);
     
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     bc.add(block2);
     
@@ -57,8 +62,9 @@ exports['add block next height but with another parent block'] = function (test)
     var block2 = blocks.block(genesis);
     var block3 = blocks.block(block2);
     
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     bc.add(block3);
     
@@ -72,8 +78,9 @@ exports['switch to a better blockchain'] = function (test) {
     var block2 = blocks.block(genesis);
     var block3 = blocks.block(block2);
     
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     bc.add(block2);
     
@@ -93,8 +100,9 @@ exports['switch to a better blockchain with gap'] = function (test) {
     var block3 = blocks.block(block2);
     var block4 = blocks.block(block3);
     
-    var bc = blockchains.blockchain(genesis);
+    var bc = blockchains.blockchain();
     
+    bc.add(genesis);
     bc.add(block);
     bc.add(block2);
     
@@ -107,3 +115,4 @@ exports['switch to a better blockchain with gap'] = function (test) {
     test.equal(bc.bestBlock().number, block4.number);
     test.equal(bc.bestBlock().hash, block4.hash);
 };
+

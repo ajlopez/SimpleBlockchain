@@ -14,6 +14,21 @@ exports['create blockchain'] = function (test) {
     test.equal(bc.bestBlock().hash, genesis.hash);
 };
 
+exports['create partial blockchain'] = function (test) {
+    var genesis = blocks.block();
+    var block1 = blocks.block(genesis);
+    var block2 = blocks.block(block1);
+    
+    var bc = blockchains.blockchain();
+    
+    bc.add(block2);
+    
+    test.ok(bc);
+    test.equal(typeof bc, 'object');
+    test.equal(bc.bestBlock().number, block2.number);
+    test.equal(bc.bestBlock().hash, block2.hash);
+};
+
 exports['add block'] = function (test) {
     var genesis = blocks.block();
     var block = blocks.block(genesis);

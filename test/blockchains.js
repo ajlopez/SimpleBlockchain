@@ -182,3 +182,50 @@ exports['get blocks in blockchain by number'] = function (test) {
     test.equal(result, null);
 };
 
+exports['get blocks in partial blockchain by number'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    var block2 = blocks.block(block);
+    var block3 = blocks.block(block2);
+    var block4 = blocks.block(block3);
+    
+    var bc = blockchains.blockchain();
+    
+    bc.add(block2);
+    bc.add(block3);
+    bc.add(block4);
+    
+    var result = bc.getBlock(0);
+    
+    test.ok(!result);
+    test.equal(result, null);
+    
+    var result = bc.getBlock(1);
+    
+    test.ok(!result);
+    test.equal(result, null);
+    
+    var result = bc.getBlock(2);
+    
+    test.ok(result);
+    test.equal(result.number, block2.number);
+    test.equal(result.hash, block2.hash);
+    
+    var result = bc.getBlock(3);
+    
+    test.ok(result);
+    test.equal(result.number, block3.number);
+    test.equal(result.hash, block3.hash);
+    
+    var result = bc.getBlock(4);
+    
+    test.ok(result);
+    test.equal(result.number, block4.number);
+    test.equal(result.hash, block4.hash);
+    
+    var result = bc.getBlock(5);
+    
+    test.ok(!result);
+    test.equal(result, null);
+};
+

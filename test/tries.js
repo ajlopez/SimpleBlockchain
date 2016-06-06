@@ -16,6 +16,16 @@ exports['get no data from empty trie'] = function (test) {
     test.equal(result, null);
 };
 
+exports['get default data from empty trie'] = function (test) {
+    var trie = tries.trie();
+    
+    trie.default(42);
+    
+    var result = trie.get('0123');
+    
+    test.equal(result, 42);
+};
+
 exports['put data and create another trie'] = function (test) {
     var trie = tries.trie();
     

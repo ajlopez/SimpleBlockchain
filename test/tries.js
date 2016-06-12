@@ -26,6 +26,23 @@ exports['get default data from empty trie'] = function (test) {
     test.equal(result, 42);
 };
 
+exports['get default data as immutable object from empty trie'] = function (test) {
+    var trie = tries.trie();
+    
+    trie.default({ name: "Adam", age: 900 });
+    
+    var result = trie.get('0123');
+    
+    test.deepEqual(result, { name: "Adam", age: 900 });
+    
+    result.name = "Eve";
+    result.age = 800;
+    
+    var result = trie.get('0123');
+    
+    test.deepEqual(result, { name: "Adam", age: 900 });
+};
+
 exports['put data and create another trie'] = function (test) {
     var trie = tries.trie();
     

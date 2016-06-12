@@ -1,5 +1,6 @@
 
 var tries = require('../lib/tries');
+var utils = require('../lib/utils');
 
 exports['get trie as object'] = function (test) {
     var trie = tries.trie();
@@ -87,7 +88,7 @@ exports['put array and get cloned array'] = function (test) {
 exports['put data and get data'] = function (test) {
     var trie = tries.trie();
     
-    var result = trie.put('0123', 42).get('0123');
+    var result = trie.put('abcd', 42).get('abcd');
     
     test.ok(result);
     test.equal(result, 42);
@@ -95,15 +96,17 @@ exports['put data and get data'] = function (test) {
 
 exports['put two data and get two data'] = function (test) {
     var trie = tries.trie();
+    var hash1 = utils.hash();
+    var hash2 = utils.hash();
     
-    var newtrie = trie.put('0123', 42).put('0000', 'foo');
+    var newtrie = trie.put(hash1, 42).put(hash2, 'foo');
     
-    var result = newtrie.get('0123');
+    var result = newtrie.get(hash1);
     
     test.ok(result);
     test.equal(result, 42);
     
-    var result = newtrie.get('0000');
+    var result = newtrie.get(hash2);
     
     test.ok(result);
     test.equal(result, 'foo');

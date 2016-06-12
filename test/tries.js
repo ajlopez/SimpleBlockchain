@@ -26,6 +26,18 @@ exports['get default data from empty trie'] = function (test) {
     test.equal(result, 42);
 };
 
+exports['get default data from non empty trie'] = function (test) {
+    var trie = tries.trie();
+    
+    trie.default(42);
+    
+    trie = trie.put('0000', 'foo');
+    
+    var result = trie.get('0123');
+    
+    test.equal(result, 42);
+};
+
 exports['get default data as immutable object from empty trie'] = function (test) {
     var trie = tries.trie();
     

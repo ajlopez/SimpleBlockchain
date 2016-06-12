@@ -6,7 +6,7 @@ function isHash(hash) {
     if (typeof hash !== 'string')
         return false;
         
-    if (hash.length != 66)
+    if (hash.length != 64)
         return false;
         
     return utils.isHexadecimal(hash);
@@ -20,7 +20,7 @@ exports['create genesis block'] = function (test) {
     test.equal(block.number, 0);
     test.ok(isHash(block.hash));
     test.ok(isHash(block.parentHash));
-    test.equal(block.parentHash, '0x0000000000000000000000000000000000000000000000000000000000000000');
+    test.equal(block.parentHash, '0000000000000000000000000000000000000000000000000000000000000000');
 }
 
 exports['create child block'] = function (test) {

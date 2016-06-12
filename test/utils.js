@@ -6,7 +6,7 @@ exports['generate hash'] = function (test) {
     
     test.ok(hash);
     test.equal(typeof hash, 'string');
-    test.equal(hash.length, 66);
+    test.equal(hash.length, 64);
     test.ok(utils.isHexadecimal(hash));
     test
 };
@@ -16,7 +16,7 @@ exports['generate address'] = function (test) {
     
     test.ok(hash);
     test.equal(typeof hash, 'string');
-    test.equal(hash.length, 42);
+    test.equal(hash.length, 40);
     test.ok(utils.isHexadecimal(hash));
     test
 };

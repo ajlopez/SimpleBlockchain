@@ -93,6 +93,22 @@ exports['put data and get data'] = function (test) {
     test.equal(result, 42);
 };
 
+exports['put two data and get two data'] = function (test) {
+    var trie = tries.trie();
+    
+    var newtrie = trie.put('0123', 42).put('0000', 'foo');
+    
+    var result = newtrie.get('0123');
+    
+    test.ok(result);
+    test.equal(result, 42);
+    
+    var result = newtrie.get('0000');
+    
+    test.ok(result);
+    test.equal(result, 'foo');
+};
+
 exports['put two new data and retrieve them'] = function (test) {
     var trie = tries.trie();
     

@@ -52,6 +52,26 @@ exports['put data and create another trie'] = function (test) {
     test.ok(result !== trie);
 };
 
+exports['put array and get cloned array'] = function (test) {
+    var trie = tries.trie();
+    
+    trie = trie.put('0123', [1, 2, 3]);
+    
+    var result = trie.get('0123');
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.deepEqual(result, [1, 2, 3]);
+    
+    result[0] = 42;
+    
+    var result = trie.get('0123');
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.deepEqual(result, [1, 2, 3]);
+};
+
 exports['put data and get data'] = function (test) {
     var trie = tries.trie();
     

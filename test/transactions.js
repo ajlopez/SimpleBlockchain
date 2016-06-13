@@ -29,8 +29,8 @@ exports['create transfer with id'] = function (test) {
 }
 
 exports['execute transfer'] = function (test) {
-    var from = 'f' + utils.hash();
-    var to = 'f' + utils.hash();
+    var from = utils.hash();
+    var to = utils.hash();
     var value = 1000;
 
     var states = tries.states().put(from, { balance: 3000 });
@@ -65,5 +65,34 @@ exports['execute transfer'] = function (test) {
     
     test.ok(newfromstate);
     test.equal(newfromstate.balance, 2000);
+}
+
+exports['execute transfer without funds'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+
+    var states = tries.states();
+
+    var tx = transactions.transfer(from, to, value);
+    
+    test.ok(tx);
+    test.equal(tx.from, from);
+    test.equal(tx.to, to);
+    test.equal(tx.value, value);
+    
+    var newstates = transactions.execute(tx, states);
+
+    test.equal(newstates, null);
+    
+    var oldfromstate = states.get(tx.from);
+    
+    test.ok(oldfromstate);
+    test.equal(oldfromstate.balance, 0);
+    
+    var oldtostate = states.get(tx.to);
+    
+    test.ok(oldtostate);
+    test.equal(oldtostate.balance, 0);
 }
 

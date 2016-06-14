@@ -228,4 +228,3 @@ exports['get blocks in partial blockchain by number'] = function (test) {
     test.ok(!result);
     test.equal(result, null);
 };
-

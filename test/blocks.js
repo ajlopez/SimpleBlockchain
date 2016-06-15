@@ -92,3 +92,36 @@ exports['execute block with transfer'] = function (test) {
     test.ok(newfromstate);
     test.equal(newfromstate.balance, 2000);
 }
+
+exports['execute block with transfer without funds'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+
+    var states = tries.states();
+
+    var tx = transactions.transfer(from, to, value);
+    
+    test.ok(tx);
+    test.equal(tx.from, from);
+    test.equal(tx.to, to);
+    test.equal(tx.value, value);
+
+    var genesis = blocks.block();
+    var block = blocks.block({ transactions: [tx] }, genesis);
+    
+    var newstates = blocks.execute(block, states);
+
+    test.equal(newstates, states);
+    
+    var oldfromstate = states.get(tx.from);
+    
+    test.ok(oldfromstate);
+    test.equal(oldfromstate.balance, 0);
+    
+    var oldtostate = states.get(tx.to);
+    
+    test.ok(oldtostate);
+    test.equal(oldtostate.balance, 0);
+}
+

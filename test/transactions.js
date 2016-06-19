@@ -28,6 +28,14 @@ exports['create transfer with id'] = function (test) {
     test.ok(utils.isHexadecimal(tx.id));
 }
 
+exports['no pending transaction'] = function (test) {
+    var pending = transactions.pending();
+    
+    test.ok(pending);
+    test.ok(Array.isArray(pending));
+    test.equal(pending.length, 0);
+}
+
 exports['execute transfer'] = function (test) {
     var from = utils.hash();
     var to = utils.hash();

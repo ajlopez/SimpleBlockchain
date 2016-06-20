@@ -36,6 +36,18 @@ exports['no pending transaction'] = function (test) {
     test.equal(pending.length, 0);
 }
 
+exports['empty transaction list'] = function (test) {
+    var txs = transactions.txs();
+    
+    test.ok(txs);
+    
+    var result = txs.list();
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.equal(result.length, 0);
+}
+
 exports['execute transfer'] = function (test) {
     var from = utils.hash();
     var to = utils.hash();

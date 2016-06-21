@@ -48,6 +48,28 @@ exports['empty transaction list'] = function (test) {
     test.equal(result.length, 0);
 }
 
+exports['add transaction to transaction list'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+
+    var tx = transactions.transfer(from, to, value);
+
+    var txs = transactions.txs();
+
+    txs.add(tx);
+    
+    var result = txs.list();
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.equal(result.length, 1);
+    test.equal(result[0].id, tx.id);
+    test.equal(result[0].from, tx.from);
+    test.equal(result[0].to, tx.to);
+    test.equal(result[0].value, tx.value);
+}
+
 exports['execute transfer'] = function (test) {
     var from = utils.hash();
     var to = utils.hash();

@@ -92,6 +92,25 @@ exports['add two transactions to transaction list'] = function (test) {
     test.equal(result[1].id, tx2.id);
 }
 
+exports['remove transaction from transaction list'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+
+    var tx = transactions.transfer(from, to, value);
+
+    var txs = transactions.txs();
+
+    txs.add(tx);
+    txs.remove(tx);
+    
+    var result = txs.list();
+    
+    test.ok(result);
+    test.ok(Array.isArray(result));
+    test.equal(result.length, 0);
+}
+
 exports['execute transfer'] = function (test) {
     var from = utils.hash();
     var to = utils.hash();

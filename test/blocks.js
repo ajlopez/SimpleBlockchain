@@ -4,24 +4,14 @@ var utils = require('../lib/utils');
 var transactions = require('../lib/transactions');
 var tries = require('../lib/tries');
 
-function isHash(hash) {
-    if (typeof hash !== 'string')
-        return false;
-        
-    if (hash.length != 64)
-        return false;
-        
-    return utils.isHexadecimal(hash);
-}
-
 exports['create genesis block'] = function (test) {
     var block = blocks.block();
     
     test.ok(block);
     test.equal(typeof block, 'object');
     test.equal(block.number, 0);
-    test.ok(isHash(block.hash));
-    test.ok(isHash(block.parentHash));
+    test.ok(utils.isHash(block.hash));
+    test.ok(utils.isHash(block.parentHash));
     test.equal(block.parentHash, '0000000000000000000000000000000000000000000000000000000000000000');
 }
 
@@ -32,8 +22,8 @@ exports['create child block'] = function (test) {
     test.ok(block);
     test.equal(typeof block, 'object');
     test.equal(block.number, 1);
-    test.ok(isHash(block.hash));
-    test.ok(isHash(block.parentHash));
+    test.ok(utils.isHash(block.hash));
+    test.ok(utils.isHash(block.parentHash));
     test.equal(block.parentHash, genesis.hash);
 }
 
@@ -44,8 +34,8 @@ exports['create child block with initial data'] = function (test) {
     test.ok(block);
     test.equal(typeof block, 'object');
     test.equal(block.number, 1);
-    test.ok(isHash(block.hash));
-    test.ok(isHash(block.parentHash));
+    test.ok(utils.isHash(block.hash));
+    test.ok(utils.isHash(block.parentHash));
     test.equal(block.parentHash, genesis.hash);
     test.equal(block.extra, 'hello');
 }

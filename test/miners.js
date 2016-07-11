@@ -54,3 +54,30 @@ exports['mine block with transaction'] = function (test) {
     test.equal(result.parentHash, genesis.hash);
 };
 
+exports['mine block rejecting transaction without funds'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+
+    var states = tries.states();
+    var tx = transactions.transfer(from, to, value);
+    
+    var txs = transactions.txs();
+    txs.add(tx);
+
+    var miner = miners.miner(txs);
+    
+    var genesis = blocks.block();
+    
+    var result = miner.mine(genesis, states);
+    
+    test.ok(result);
+    test.ok(result.hash);
+    test.ok(result.transactions);
+    test.ok(Array.isArray(result.transactions));
+    test.equal(result.transactions.length, 0);
+    
+    test.ok(result.parentHash);
+    test.equal(result.parentHash, genesis.hash);
+};
+

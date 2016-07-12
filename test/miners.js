@@ -52,6 +52,12 @@ exports['mine block with transaction'] = function (test) {
     
     test.ok(result.parentHash);
     test.equal(result.parentHash, genesis.hash);
+    
+    var pendingtxs = txs.list();
+    
+    test.ok(pendingtxs);
+    test.ok(Array.isArray(pendingtxs));
+    test.equal(pendingtxs.length, 0);
 };
 
 exports['mine block rejecting transaction without funds'] = function (test) {

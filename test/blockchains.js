@@ -71,6 +71,21 @@ exports['add block with next height'] = function (test) {
     test.equal(bc.bestBlock().hash, block2.hash);
 };
 
+exports['add two blocks in wrong order'] = function (test) {
+    var genesis = blocks.block();
+    var block = blocks.block(genesis);
+    var block2 = blocks.block(block);
+    
+    var bc = blockchains.blockchain();
+    
+    bc.add(genesis);
+    bc.add(block2);
+    bc.add(block);
+    
+    test.equal(bc.bestBlock().number, block2.number);
+    test.equal(bc.bestBlock().hash, block2.hash);
+};
+
 exports['add block next height but with another parent block'] = function (test) {
     var genesis = blocks.block();
     var block = blocks.block(genesis);

@@ -49,3 +49,20 @@ exports['add transfer'] = function (test) {
 	test.equal(ntx.from, tx.from);
 };
 
+exports['mine with no transfers'] = function (test) {
+    var genesis = blocks.block();
+	var node = nodes.node();
+	
+	node.addBlock(genesis);
+	
+	var result = node.mine();
+
+    test.ok(result);
+    test.ok(result.hash);
+    test.ok(result.transactions);
+    test.ok(Array.isArray(result.transactions));
+    test.equal(result.transactions.length, 0);
+    test.ok(result.parentHash);
+    test.equal(result.parentHash, genesis.hash);
+};
+

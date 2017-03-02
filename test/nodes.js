@@ -66,3 +66,26 @@ exports['mine with no transfers'] = function (test) {
     test.equal(result.parentHash, genesis.hash);
 };
 
+exports['mine with one transfer'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    var value = 1000;
+    
+    var tx = transactions.transfer(from, to, value);
+
+    var genesis = blocks.block();
+	var node = nodes.node();
+	
+	node.addBlock(genesis);
+	node.addTransaction(tx);
+	
+	var result = node.mine();
+
+    test.ok(result);
+    test.ok(result.hash);
+    test.ok(result.transactions);
+    test.ok(Array.isArray(result.transactions));
+    test.equal(result.transactions.length, 1);
+    test.ok(result.parentHash);
+    test.equal(result.parentHash, genesis.hash);
+};

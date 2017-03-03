@@ -69,7 +69,7 @@ exports['mine with no transfers'] = function (test) {
 exports['mine with one transfer'] = function (test) {
     var from = utils.hash();
     var to = utils.hash();
-    var value = 1000;
+    var value = 0;
     
     var tx = transactions.transfer(from, to, value);
 

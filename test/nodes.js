@@ -3,6 +3,7 @@ var nodes = require('../lib/nodes');
 var blocks = require('../lib/blocks');
 var transactions = require('../lib/transactions');
 var utils = require('../lib/utils');
+var tries = require('../lib/tries');
 
 exports['create node'] = function (test) {
 	var node = nodes.node();
@@ -89,3 +90,32 @@ exports['mine with one transfer'] = function (test) {
     test.ok(result.parentHash);
     test.equal(result.parentHash, genesis.hash);
 };
+
+
+exports['mine with two transfers'] = function (test) {
+    var from = utils.hash();
+    var to = utils.hash();
+    
+    var tx1 = transactions.transfer(from, to, 100);
+    var tx2 = transactions.transfer(to, from, 50);
+
+	var states = tries.states().put(from, { balance: 3000 });
+
+    var genesis = blocks.block();
+	var node = nodes.node(states);
+	
+	node.addBlock(genesis);
+	node.addTransaction(tx1);
+	node.addTransaction(tx2);
+	
+	var result = node.mine();
+
+    test.ok(result);
+    test.ok(result.hash);
+    test.ok(result.transactions);
+    test.ok(Array.isArray(result.transactions));
+    test.equal(result.transactions.length, 2);
+    test.ok(result.parentHash);
+    test.equal(result.parentHash, genesis.hash);
+};
+

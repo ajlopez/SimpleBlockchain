@@ -12,6 +12,15 @@ exports['create node'] = function (test) {
 	test.equal(typeof node, 'object');
 };
 
+exports['nodes with states'] = function (test) {
+	var node = nodes.node();
+	
+	var result = node.states();
+	
+	test.ok(result);
+	test.equal(typeof result, 'object');
+}
+
 exports['add genesis block'] = function (test) {
     var genesis = blocks.block();
 	var node = nodes.node();

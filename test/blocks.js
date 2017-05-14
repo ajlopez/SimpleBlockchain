@@ -102,7 +102,7 @@ exports['execute block with transfer without funds'] = function (test) {
     
     var newstates = blocks.execute(block, states);
 
-    test.equal(newstates, states);
+	test.equal(newstates, null);
     
     var oldfromstate = states.get(tx.from);
     
